@@ -40,19 +40,7 @@ class issueviewmodel @Inject constructor(private val issuerepository: Issuerepos
         }
     }
 
-    fun searchqueryissues(query:String){
-        viewModelScope.launch {
-            try{
-                 val data = issuerepository.getqueryissues(query)
-                 _issuelist.value = data.body()
-            }catch (e: IOException) {
-                Log.e("query", "Network error", e)
-                _issuelist.value = emptyList()
-            } catch (e:Exception){
-                Log.e("query","Error occured in query search",e)
-            }
-        }
-    }
+
 
 
 

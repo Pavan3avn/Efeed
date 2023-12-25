@@ -13,6 +13,9 @@ import com.pavan.efeed.R
 
 
 class Adapter( private var issuelist: List<Issues> ):RecyclerView.Adapter<Adapter.viewholder>() {
+
+    private var filterList: List<Issues> = issuelist.toList()
+
     inner class viewholder(v: View):RecyclerView.ViewHolder(v) {
          val imageView : ImageView = v.findViewById(R.id.profile)
          val title:TextView = v.findViewById(R.id.title)
@@ -28,7 +31,7 @@ class Adapter( private var issuelist: List<Issues> ):RecyclerView.Adapter<Adapte
     }
 
     override fun onBindViewHolder(holder: Adapter.viewholder, position: Int) {
-         val issue = issuelist[position]
+         val issue = filterList[position]
         holder.title.text = issue.title
         holder.created.text = holder.itemView.context.getString(R.string.created,issue.created)
         holder.closed.text = holder.itemView.context.getString(R.string.closed,issue.closed)
@@ -40,12 +43,24 @@ class Adapter( private var issuelist: List<Issues> ):RecyclerView.Adapter<Adapte
     }
 
     override fun getItemCount(): Int {
-        return issuelist.size
+        return filterList.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(list : List<Issues>){
         this.issuelist = list
+        filter("")
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filter(query: String) {
+
+        filterList = if (query.isBlank()) {
+            issuelist.toList()
+        } else {
+            issuelist.filter { it.title.contains(query, ignoreCase = true) }
+        }
         notifyDataSetChanged()
     }
 }

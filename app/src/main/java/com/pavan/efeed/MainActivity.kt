@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(p0: String?): Boolean {
                 if(!p0.isNullOrBlank()){
-                    viewmodel.searchqueryissues(p0)
+                    adapter.filter(p0)
                 }
                 return true
             }
