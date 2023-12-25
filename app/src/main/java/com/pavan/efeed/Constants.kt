@@ -2,7 +2,7 @@ package com.pavan.efeed
 
 object Constants {
 
-    const val owner  = "Homebrew"
-    const val repo = "homebrew-core"
+    const val owner  = "McTsts"
+    const val repo = "Werewolves-Roles"
     val BASEURL = "https://api.github.com"
 }

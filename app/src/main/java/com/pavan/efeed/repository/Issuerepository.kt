@@ -13,8 +13,8 @@ class Issuerepository @Inject constructor(private val gitapiresponse: gitapiresp
         return gitapiresponse.getclosedissues(owner,repo,"closed")
      }
 
-    suspend fun getqueryissues(query:String):Response<List<Issues>>{
-        return gitapiresponse.getqueryissues(owner,repo,"closed",query)
+    suspend fun getqueryissues(@Query("q") query:String):Response<List<Issues>>{
+        return gitapiresponse.getqueryissues(query, owner,repo,"issue","closed")
     }
 
  }

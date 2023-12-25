@@ -3,4 +3,8 @@
     <string name="created_at">created at:</string>
     <string name="closed_at">closed at:</string>
     <string name="username">User name</string>
+    <string name="title">title</string>
+    <string name="created">Created at: %s</string>
+    <string name="closed">Closed at: %s</string>
+    <string name="name">Name: %s</string>
 </resources>

@@ -15,11 +15,12 @@ interface gitapiresponse {
         @Query("state") state : String
     ):Response<List<Issues>>
 
-    @GET("/repos/{owner}/{repo}/issues")
+    @GET("/search/issues?q=is:issue%20repo:{owner}/{repo}")
     suspend fun getqueryissues(
-        @Path("owner") owner : String,
-        @Path("repo") repo : String,
-        @Query("state") state : String,
-        @Query("q") query: String
+        @Query("q") query: String,
+        @Path("owner") owner: String,
+        @Path("repo") repo: String,
+        @Query("is") issueQualifie : String,
+        @Query("is") closedQualifier: String,
     ) :Response<List<Issues>>
 }

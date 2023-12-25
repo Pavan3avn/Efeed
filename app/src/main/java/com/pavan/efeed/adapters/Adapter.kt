@@ -1,5 +1,6 @@
 package com.pavan.efeed.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,11 +28,12 @@ class Adapter( private var issuelist: List<Issues> ):RecyclerView.Adapter<Adapte
     }
 
     override fun onBindViewHolder(holder: Adapter.viewholder, position: Int) {
-        holder.title.text = issuelist[position].title
-        holder.created.text = issuelist[position].created
-        holder.closed.text = issuelist[position].closed
-        holder.user.text = issuelist[position].user.name
-        val image = issuelist[position]
+         val issue = issuelist[position]
+        holder.title.text = issue.title
+        holder.created.text = holder.itemView.context.getString(R.string.created,issue.created)
+        holder.closed.text = holder.itemView.context.getString(R.string.closed,issue.closed)
+        holder.user.text = holder.itemView.context.getString(R.string.name,issue.user.name)
+        val image = issue
         Glide.with(holder.itemView)
             .load(image.user.avatarUrl)
             .into(holder.imageView)
@@ -41,7 +43,8 @@ class Adapter( private var issuelist: List<Issues> ):RecyclerView.Adapter<Adapte
         return issuelist.size
     }
 
-    fun submitlist(list : List<Issues>){
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(list : List<Issues>){
         this.issuelist = list
         notifyDataSetChanged()
     }

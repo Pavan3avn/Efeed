@@ -28,7 +28,11 @@ class issueviewmodel @Inject constructor(private val issuerepository: Issuerepos
         viewModelScope.launch {
             try {
                 val data  = issuerepository.getissues()
-                _issuelist.value = data.body()?: emptyList()
+                if (data.isSuccessful) {
+                    _issuelist.value = data.body()
+                } else {
+                    Log.e("Viewmodel", "Error: ${data.message()}")
+                }
             }catch (e : Exception){
                 Log.e("Viewmodel","error occured",e)
             }
@@ -41,7 +45,6 @@ class issueviewmodel @Inject constructor(private val issuerepository: Issuerepos
             try{
                  val data = issuerepository.getqueryissues(query)
                  _issuelist.value = data.body()
-
             }catch (e: IOException) {
                 Log.e("query", "Network error", e)
                 _issuelist.value = emptyList()
